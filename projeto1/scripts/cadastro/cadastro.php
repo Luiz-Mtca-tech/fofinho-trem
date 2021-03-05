@@ -34,11 +34,16 @@ $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_NUMBER_INT);
 //verificando se os dados são válidos
 if ($email && $nome && $senha && $telefone && $cep) {
 	//preparando a requisição para o banco de dados
-	$sql = $pdo->prepare("INSERT INTO clientes (nome, email, cep, telefone, senha) VALUES ('$nome', '$email', '$cep', '$telefone', '$senha')");
+	
+    $crypto_senha = md5($senha);
+    
+	$sql = $pdo->prepare("INSERT INTO clientes (nome, email, cep, telefone, senha) VALUES ('$nome', '$email', '$cep', '$telefone', '$crypto_senha')");
 	
 	// se a requisição do banco funcionar:
 	if($sql->execute()){
 		
+	    $sql = $pdo->prepare("SELECT senha FROM clientes WHERE nome = '$nome'");
+	    
 		// crie uma mnsagem de aviso informando o êxito da operação
 		$_SESSION['aviso'] = 'Operação realizada com sucesso!';
 		

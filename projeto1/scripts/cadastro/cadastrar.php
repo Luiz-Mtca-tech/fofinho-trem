@@ -82,7 +82,7 @@ session_start();
 			
 			<input type="submit" value="enviar" id="btn-env">
 			
-			<input type="button" value="Ocultar senha" id="btn-vs">
+			<input type="button" value="Mostrar senha" id="btn-vs">
 				
 		</form>
 		
